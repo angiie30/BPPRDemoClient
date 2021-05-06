@@ -4,22 +4,22 @@ import { UserFormComponent } from './user/user-form/user-form.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
-  { path: "users", component: UserComponent },
-  { path: "users/add", component: UserFormComponent },
-  { path: "users/:id", component: UserFormComponent },
-  {
-    path: "",
-    redirectTo: "users",
-    pathMatch: "full",
-  },
-  {
-    path: "**",
-    redirectTo: "users",
-  },
+	{ path: 'users', component: UserComponent },
+	{ path: 'users/add', component: UserFormComponent },
+	{ path: 'users/:id', component: UserFormComponent },
+	{
+		path: '',
+		redirectTo: 'users',
+		pathMatch: 'full',
+	},
+	{
+		path: '**',
+		redirectTo: 'users',
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -12,20 +12,9 @@ import { UserComponent } from './user/user.component';
 import { UserService } from './user/user.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UserComponent,
-    UserListComponent,
-    UserFormComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    SharedModule
-  ],
-  providers: [UserService],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent, UserComponent, UserListComponent, UserFormComponent],
+	imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, SharedModule],
+	providers: [UserService],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
