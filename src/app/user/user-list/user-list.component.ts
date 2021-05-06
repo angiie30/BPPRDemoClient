@@ -33,7 +33,6 @@ export class UserListComponent implements OnInit {
                 user.phone = user.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
             })
             this.userList = this.response.data;
-            console.log(this.response);
         }
         catch(e)
         {

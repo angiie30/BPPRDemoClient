@@ -23,7 +23,6 @@ export class UserFormComponent implements OnInit {
     {
         let id = this.route.snapshot.paramMap.get("id");
         this.userId = id === null ? 0 : +id;
-        console.log(id, this.userId)
         if(this.userId != 0) this.getUser();
         else this.loading = false;
     }

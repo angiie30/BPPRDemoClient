@@ -1,5 +1,5 @@
 <app-loading [loading]="loading"></app-loading>
-<div class="row">
+<div class="row" *ngIf='!loading'>
     <div class="col">
         <a class="btn btn-sm btn-primary" (click)="goForm()"><i class="fas fa-plus"></i> Add User</a>
     </div>
