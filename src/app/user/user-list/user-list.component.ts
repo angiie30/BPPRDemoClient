@@ -48,4 +48,8 @@ export class UserListComponent implements OnInit {
     public goDetail(id: number) {
         this.router.navigate(["/users", id]);
     }
+
+    public goForm() {
+        this.router.navigate(["/users/add"]);
+    }
 }

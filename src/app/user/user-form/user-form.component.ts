@@ -12,6 +12,7 @@ import { UserService } from '../user.service';
 export class UserFormComponent implements OnInit {
     public loading: boolean = true;
     public errorMessage: string = "";
+    public errorMessageList: string[] = [];
     public userId: number = 0;
     public user: User = new User();
     public response: Response<User> = new Response<User>(this.user);
@@ -21,9 +22,10 @@ export class UserFormComponent implements OnInit {
     ngOnInit()
     {
         let id = this.route.snapshot.paramMap.get("id");
-        this.userId = id == null ? 0 : +id;
-        
-        this.getUser();
+        this.userId = id === null ? 0 : +id;
+        console.log(id, this.userId)
+        if(this.userId != 0) this.getUser();
+        else this.loading = false;
     }
 
     public async getUser()
@@ -39,6 +41,7 @@ export class UserFormComponent implements OnInit {
         catch(e)
         {
             console.error(e);
+            this.errorMessage = e.error.title;
         }
         finally
         {
@@ -48,6 +51,8 @@ export class UserFormComponent implements OnInit {
 
     public async update()
     {
+        if(!this.validFields()) return;
+
         this.loading = true;
 
         try 
@@ -58,6 +63,7 @@ export class UserFormComponent implements OnInit {
         catch(e)
         {
             console.error(e);
+            this.errorMessage = e.error.title;
         }
         finally
         {
@@ -67,14 +73,26 @@ export class UserFormComponent implements OnInit {
 
     public async create()
     {
-        
-    }
-
-    public async save()
-    {
         if(!this.validFields()) return;
 
-        this.update();
+        this.user.phone = this.getClearPhone();
+        
+        this.loading = true;
+
+        try 
+        {
+            this.response = await this.userService.create(this.user);
+            if(this.response.success) this.goBack();
+        }
+        catch(e)
+        {
+            console.error(e);
+            this.errorMessage = e.error.title;
+        }
+        finally
+        {
+            this.loading = false;
+        }
     }
 
     public onKey(event: any) { 
@@ -89,19 +107,41 @@ export class UserFormComponent implements OnInit {
     private validFields()
     {
         let valid: boolean = true;
+        this.errorMessageList = [];
 
         if(!this.validEmail(this.user.email)) {
-            this.errorMessage = "Email is incorrect.";
+            this.errorMessageList.push("Email is incorrect.");
             valid = false;
         }
 
         if(!this.validPhone())
         {
-            this.errorMessage = "Phone is incorrect.";
+            this.errorMessageList.push("Phone is incorrect.");
             valid = false;
         }
 
-        if(valid) this.errorMessage = "";
+        if(this.userId === 0) {
+            if(this.user.firstName === "")
+            {
+                this.errorMessageList.push("First Name is required.");
+                valid = false;
+            }
+
+            if(this.user.lastName === "")
+            {
+                this.errorMessageList.push("Last Name is required.");
+                valid = false;
+            }
+        }
+
+        if(valid) {
+            this.errorMessage = "";
+            this.errorMessageList = []; 
+        }
+        else 
+        {
+            this.errorMessage = 'Please check the following fields:';
+        }
 
         return valid;
     }

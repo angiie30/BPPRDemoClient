@@ -22,4 +22,8 @@ export class UserService extends BaseService {
     update(id: number, email: string, phone: string, active: boolean): Promise<Response<User>> {
       return this.patch<User>( `/${id}`, { Email: email, Phone: phone, Active: active});
     }
+
+    create(user: User): Promise<Response<User>> {
+      return this.post<User>( `/`, user);
+    }
 }

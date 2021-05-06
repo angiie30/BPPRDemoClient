@@ -7,21 +7,32 @@
   <div class="alert alert-dismissible alert-danger" *ngIf="errorMessage !=  ''">
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       <strong>Error!!</strong> {{errorMessage}}
+      <ul>
+        <li *ngFor="let message of errorMessageList">{{message}}</li>
+      </ul>  
+      
     </div>
     <div class="card  border-light  mb-3">
       <div class="card-header text-white">
-        <span *ngIf="!loading">{{user.firstName}} {{user.lastName}}</span>
-        <span *ngIf="loading">User Information</span>
+        <span *ngIf="userId">{{user.firstName}} {{user.lastName}}</span>
+        <span *ngIf="loading || userId == 0">User Information</span>
       </div>
         <div class="card-body p-4">
             <app-loading [loading]="loading"></app-loading>
 
             <form *ngIf="!loading">
                 <fieldset>
+                  <div class="form-group form-floating row" *ngIf="userId == 0">
+                    <input type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="Enter First Name" name="firstName" maxlength="50"  [(ngModel)]="user.firstName">
+                    <label for="firstName">First Name</label>
+                  </div>
+                  <div class="form-group form-floating row mt-3 mb-3" *ngIf="userId == 0">
+                    <input type="text" class="form-control" id="lastName" aria-describedby="lastName" placeholder="Enter Last Name" name="lastName" maxlength="50"  [(ngModel)]="user.lastName">
+                    <label for="lastName">Last Name</label>
+                  </div>
                   <div class="form-group form-floating row">
                     <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email" name="email" maxlength="100"  [(ngModel)]="user.email">
                     <label for="email">Email address</label>
-                    
                   </div>
                   <div class="form-group form-floating row mt-3">
                     <input type="tel" class="form-control" id="phone" aria-describedby="phone" placeholder="Enter phone number" name="phone" maxlength="12" (keyup)="onKey($event)"  [(ngModel)]="user.phone">
@@ -29,14 +40,14 @@
                   </div>
                   <fieldset class="mt-4 mb-4 row">
                     <div class="form-check form-switch">
+                      <label class="form-check-label active-label" for="userActive">Active</label>
                       <input class="form-check-input" type="checkbox" id="userActive" [checked]="user.active" (change)="user.active = !user.active" >
-                      <label class="form-check-label" for="userActive">Active</label>
                     </div>
                   </fieldset>
                   <div class="btn-group col-12" role="group" aria-label="Basic outlined example">
                     <button type="button" class="btn btn-block btn-secondary" (click)="goBack()">Cancel</button>
-                    <button type="submit" class="btn btn-block btn-info" *ngIf="userId != 0" (click)="save()">Save</button>
-                    <button type="submit" class="btn btn-block btn-success" *ngIf="userId == 0" (click)="create()">Create</button>
+                    <button type="submit" class="btn btn-block btn-info" *ngIf="userId != 0" (click)="update()">Save</button>
+                    <button type="submit" class="btn btn-block btn-primary" *ngIf="userId == 0" (click)="create()">Create</button>
                   </div>
                 </fieldset>
               </form>
