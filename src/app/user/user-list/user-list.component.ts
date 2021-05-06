@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Response } from 'src/app/shared/response.model';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
@@ -13,7 +14,7 @@ export class UserListComponent implements OnInit {
     public userList: User[] = [];
     public response: Response<User[]> = new Response<User[]>(this.userList);
 
-    constructor(public userService: UserService) {}
+    constructor(public userService: UserService, private router: Router) {}
 
     ngOnInit()
     {
@@ -27,6 +28,9 @@ export class UserListComponent implements OnInit {
         try 
         {
             this.response = await this.userService.getUsers();
+            this.response.data.forEach(user => {
+                user.phone = user.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+            })
             this.userList = this.response.data;
             console.log(this.response);
         }
@@ -38,5 +42,9 @@ export class UserListComponent implements OnInit {
         {
             this.loading = false;
         }
+    }
+
+    public goDetail(id: number) {
+        this.router.navigate(["/users", id]);
     }
 }

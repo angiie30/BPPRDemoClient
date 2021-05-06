@@ -15,7 +15,7 @@ export class BaseService {
 
   protected get<T>(endpoint: string, params?: any) {
     return this.http
-      .get<IResponse<T>>(`${this.urlBase}${this.routePrefix}${endpoint}`, {
+      .get<IResponse<T>>(`${this.urlBase}api/${this.routePrefix}${endpoint}`, {
         params: params,
       })
       .toPromise();
@@ -23,19 +23,25 @@ export class BaseService {
 
   protected post<T>(endpoint: string, body: any) {
     return this.http
-      .post<IResponse<T>>(`${this.urlBase}${this.routePrefix}${endpoint}`, body)
+      .post<IResponse<T>>(`${this.urlBase}api/${this.routePrefix}${endpoint}`, body)
       .toPromise();
   }
 
   protected put<T>(endpoint: string, body: any) {
     return this.http
-      .put<IResponse<T>>(`${this.urlBase}${this.routePrefix}${endpoint}`, body)
+      .put<IResponse<T>>(`${this.urlBase}api/${this.routePrefix}${endpoint}`, body)
+      .toPromise();
+  }
+
+  protected patch<T>(endpoint: string, body: any) {
+    return this.http
+      .patch<IResponse<T>>(`${this.urlBase}api/${this.routePrefix}${endpoint}`, body)
       .toPromise();
   }
 
   protected delete<T>(endpoint: string, params?: any) {
     return this.http
-      .delete<IResponse<T>>(`${this.urlBase}${this.routePrefix}${endpoint}`, {
+      .delete<IResponse<T>>(`${this.urlBase}api/${this.routePrefix}${endpoint}`, {
         params: params,
       })
       .toPromise();

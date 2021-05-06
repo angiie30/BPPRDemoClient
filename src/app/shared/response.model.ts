@@ -12,6 +12,7 @@ export class Response<T> implements IResponse<T> {
   constructor(data: T)
   {
     this.data = data;
+
   }
 
 }

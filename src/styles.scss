@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../src/assets/css/variables";
+
+body
+{
+    background-color: #f5f5f5 !important;
+}
+
+.breadcrumb
+{
+    background-color: #035ba5;
+    padding: 1%;
+
+    li {
+        color: white !important;
+    }
+
+    a {
+        color: white !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+    }
+}
+
+.bg-primary {
+    background-color: $primary !important;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: $bppr-blue-light;
+    border-color: $bppr-blue-light;
+}
+
+.pointer {cursor: pointer;}
+
+.card-header {
+    background-color: $secondary !important;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: $secondary;
+    border-color: $secondary;
+}

@@ -14,4 +14,12 @@ export class UserService extends BaseService {
     getUsers(): Promise<Response<User[]>> {
       return this.get<User[]>( "/");
     }
+
+    getUser(id: number): Promise<Response<User>> {
+      return this.get<User>( `/${id}`, {});
+    }
+
+    update(id: number, email: string, phone: string, active: boolean): Promise<Response<User>> {
+      return this.patch<User>( `/${id}`, { Email: email, Phone: phone, Active: active});
+    }
 }
