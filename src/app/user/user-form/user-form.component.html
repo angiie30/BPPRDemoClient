@@ -10,10 +10,13 @@
     </div>
     <div class="card  border-light  mb-3">
       <div class="card-header text-white">
-        {{user.firstName}} {{user.lastName}}
+        <span *ngIf="!loading">{{user.firstName}} {{user.lastName}}</span>
+        <span *ngIf="loading">User Information</span>
       </div>
         <div class="card-body p-4">
-            <form>
+            <app-loading [loading]="loading"></app-loading>
+
+            <form *ngIf="!loading">
                 <fieldset>
                   <div class="form-group form-floating row">
                     <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email" name="email" maxlength="100"  [(ngModel)]="user.email">

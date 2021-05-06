@@ -10,6 +10,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+    public term: string = "";
     public loading: boolean = true;
     public userList: User[] = [];
     public response: Response<User[]> = new Response<User[]>(this.userList);

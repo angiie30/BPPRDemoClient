@@ -1,27 +1,33 @@
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col" class="text-center">Active</th>
-            <th scope="col" class="text-center"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of userList" class="pointer" (click)="goDetail(user.id)">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.phone}}</td>
-            <td class="text-center">     
-                <i class="fas fa-check text-success" *ngIf="user.active"></i>
-                <i class="fas fa-times text-danger" *ngIf="!user.active"></i></td>
-            <td class="text-center text-info">
-                <i class="fas fa-edit"></i>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<app-loading [loading]="loading"></app-loading>
+<div class="row" *ngIf='!loading'>
+    <div class="col">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col" class="text-center">Active</th>
+                    <th scope="col" class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList" class="pointer" (click)="goDetail(user.id)">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone}}</td>
+                    <td class="text-center">     
+                        <i class="fas fa-check text-success" *ngIf="user.active"></i>
+                        <i class="fas fa-times text-danger" *ngIf="!user.active"></i></td>
+                    <td class="text-center text-info">
+                        <i class="fas fa-edit"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
  
